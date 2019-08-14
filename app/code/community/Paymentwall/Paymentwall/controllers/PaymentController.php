@@ -10,6 +10,7 @@
  */
 class Paymentwall_Paymentwall_PaymentController extends Mage_Core_Controller_Front_Action
 {
+    const ORDER_STATUS_AFTER_PINGBACK_SUCCESS = 'processing';
 
     /**
      * Action that handles pingback call from paymentwall system
@@ -48,27 +49,19 @@ class Paymentwall_Paymentwall_PaymentController extends Mage_Core_Controller_Fro
         if ($curOrderId) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($curOrderId);
             if ($order->getId()) {
-
-                if ($response['status'] = $order->getStatus() == Mage_Sales_Model_Order::STATE_PROCESSING
-                    || $order->getStatus() == Mage_Sales_Model_Order::STATE_CANCELED
-                ) {
-                    $response['status'] = 1;
-                    $response['message'] = $order->getStatus() == Mage_Sales_Model_Order::STATE_CANCELED
-                        ? "<h3>{$this->__("Payment Canceled")}</h3>"
-                        : "<h3>{$this->__("Payment Processed")}</h3>";
-
-                    // Clear shopping cart
-                    Mage::getSingleton('checkout/cart')->truncate();
-
-                } else {
-                    $response['status'] = 0;
-                }
+                $response['status'] = $order->getStatus() == self::ORDER_STATUS_AFTER_PINGBACK_SUCCESS
+                    ? 1 : 0;
                 // Get success page redirect url
                 $response['url'] = '';
             } else {
                 $response['status'] = 2; // Error
                 $response['message'] = 'Order Invalid';
             }
+        }
+        if ($response['status'] == 1) {
+            $response['message'] = "<h3>{$this->__("Payment Processed")}</h3>";
+            // Clear shopping cart
+            Mage::getSingleton('checkout/cart')->truncate();
         }
 
         $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
