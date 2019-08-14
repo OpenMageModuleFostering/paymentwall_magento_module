@@ -19,7 +19,7 @@ class Paymentwall_Paymentwall_PaymentController extends Mage_Core_Controller_Fro
     public function ipnAction()
     {
         $result = Mage::getModel('paymentwall/pingback')->handlePingback();
-        die($result);
+        $this->getResponse()->setBody($result);
     }
 
     /**
@@ -30,6 +30,43 @@ class Paymentwall_Paymentwall_PaymentController extends Mage_Core_Controller_Fro
     {
         $this->loadLayout();
         $this->renderLayout();
+    }
+
+    /**
+     * 3Ds Processing
+     */
+    public function threedsAction()
+    {
+        $chargeId = $this->getRequest()->get('brick_charge_id');
+        $secureToken = $this->getRequest()->get('brick_secure_token');
+        $orderId = Mage::getModel('core/session')->getChargeOrderId();
+        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+        $chargeData = json_decode(Mage::getModel('core/session')->getChargeData(), true);
+
+        if (
+            $chargeId
+            && $secureToken
+            && $chargeData
+            && $order->getId()
+        ) {
+            $chargeData['charge_id'] = $chargeId;
+            $chargeData['secure_token'] = $secureToken;
+
+            try {
+                if (Mage::getModel('paymentwall/method_pwbrick')->processOrderAfter3Ds($order, $chargeData)) {
+                    $url = Mage::getUrl('checkout/onepage/success', array('_query' => '_secure=true'));
+                    Mage::app()->getResponse()->setRedirect($url)->sendResponse();
+                    die;
+                }
+            } catch (Mage_Exception $e) {
+                Mage::getSingleton('core/session')->addError($e->getMessage());
+            }
+            
+            $url = Mage::getUrl('/');
+            Mage::app()->getResponse()->setRedirect($url)->sendResponse();
+        } elseif ($secureForm = Mage::getModel('core/session')->getSecureFormHtml()) {
+            $this->getResponse()->setBody($secureForm);
+        }
     }
 
     /**
