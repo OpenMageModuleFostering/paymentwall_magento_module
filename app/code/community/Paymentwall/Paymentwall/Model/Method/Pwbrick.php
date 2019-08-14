@@ -6,8 +6,8 @@
  *
  * Class Paymentwall_Paymentwall_Model_Method_Pwbrick
  */
-class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwall_Model_Method_Abstract
-{
+class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwall_Model_Method_Abstract {
+
     protected $_isInitializeNeeded = false;
     protected $_canUseInternal = false;
     protected $_canUseForMultishipping = false;
@@ -18,8 +18,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
      * Constructor method.
      * Set some internal properties
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct('pwbrick');
     }
 
@@ -28,8 +27,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
      * @param  $payment
      * @return $this
      */
-    public function prepareCardInfo($payment)
-    {
+    public function prepareCardInfo($payment) {
         $order = $payment->getOrder();
         $info = $this->getInfoInstance();
         $this->setCurrentOrder($order);
@@ -40,6 +38,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
             'token' => $info->getAdditionalInformation('brick_token'),
             'fingerprint' => $info->getAdditionalInformation('brick_fingerprint'),
             'description' => 'Order #' . $order->getIncrementId(),
+            'plan' => $order->getIncrementId(),
         );
     }
 
@@ -47,16 +46,13 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
      * @param $data
      * @return mixed
      */
-    public function assignData($data)
-    {
+    public function assignData($data) {
         if (!($data instanceof Varien_Object)) {
             $data = new Varien_Object($data);
         }
-
         $info = $this->getInfoInstance();
         $info->setAdditionalInformation('brick_token', $data->getBrickToken())
             ->setAdditionalInformation('brick_fingerprint', $data->getBrickFingerprint());
-
         return $this;
     }
 
@@ -66,8 +62,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
      * @return Mage_Payment_Model_Abstract|void
      * @throws Mage_Core_Exception
      */
-    public function capture(Varien_Object $payment, $amount)
-    {
+    public function capture(Varien_Object $payment, $amount) {
         $this->initPaymentwallConfig();
         $charge = new Paymentwall_Charge();
         $charge->create(array_merge(
@@ -78,7 +73,6 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
 
         // Debug
         $this->log($response, 'Charge response');
-
         if ($charge->isSuccessful()) {
             if ($charge->isCaptured()) {
                 // deliver a product

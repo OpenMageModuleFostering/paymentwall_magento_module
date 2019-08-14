@@ -25,28 +25,6 @@ class Paymentwall_Paymentwall_Model_Method_Pwlocal extends Paymentwall_Paymentwa
     }
 
     /**
-     * Make invoice for paid order
-     * @return void
-     */
-    protected function makeInvoice()
-    {
-        $order = $this->getCurrentOrder();
-        if ($order) {
-            $invoice = $order->prepareInvoice()
-                ->setTransactionId($order->getId())
-                ->addComment("Invoice created by Paymentwall Brick")
-                ->register()
-                ->pay();
-
-            $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($invoice)
-                ->addObject($invoice->getOrder());
-            $transactionSave->save();
-            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true)->save();
-        }
-    }
-
-    /**
      * Generate Paymentwall Widget
      * @param $order
      * @return Paymentwall_Widget
