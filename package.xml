@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>paymentwall_magento_module</name>
+    <version>1.0.0</version>
+    <stability>stable</stability>
+    <license>MITL</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Paymentwall PCI compliant payment module for Magento. 120+ payment methods in more than 200 countries.</summary>
+    <description>Paymentwall&#x2019;s Magneto plug-in is easy to install and fully customizable payment extension. With a single integration you&#x2019;ll have access to our 120+ payment options localized in 75+ currencies and more than 200 countries. You&#x2019;ll also have access to our top-notch risk management and fraud protection services, optimization assistance, 24/7 live customer support and detail analytics and reporting tools.</description>
+    <notes>Stable and well tested version of Paymentwall payment extension</notes>
+    <authors><author><name>Ivan</name><user>Paymentwall</user><email>ivan.shvets@paymentwall.com</email></author></authors>
+    <date>2014-09-03</date>
+    <time>09:54:13</time>
+    <contents></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.3.0</min><max>5.6.0</max></php><package><name>paymentwall_magento_module</name><channel>community</channel><min>1.7</min><max>1.9</max></package></required></dependencies>
+</package>

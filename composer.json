@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/paymentwall_magento_module",
+    "type": "magento-module",
+    "license": "MITL",
+    "homepage": "",
+    "description": "Paymentwall PCI compliant payment module for Magento. 120+ payment methods in more than 200 countries.",
+    "authors": [
+    {
+        "name": "Ivan",
+        "email": "ivan.shvets@paymentwall.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
