@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "MITL",
     "homepage": "",
-    "description": "Paymentwall PCI compliant payment module for Magento. 120+ payment methods in more than 200 countries.",
+    "description": "Paymentwall payment extension for Magento. 120+ payment methods in more than 200 countries.",
     "authors": [
     {
         "name": "Ivan",

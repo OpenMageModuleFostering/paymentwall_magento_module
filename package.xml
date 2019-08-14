@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <package>
     <name>paymentwall_magento_module</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <stability>stable</stability>
-    <license>MITL</license>
+    <license uri="http://opensource.org/licenses/MIT">MITL</license>
     <channel>community</channel>
     <extends/>
-    <summary>Paymentwall PCI compliant payment module for Magento. 120+ payment methods in more than 200 countries.</summary>
-    <description>Paymentwall&#x2019;s Magneto plug-in is easy to install and fully customizable payment extension. With a single integration you&#x2019;ll have access to our 120+ payment options localized in 75+ currencies and more than 200 countries. You&#x2019;ll also have access to our top-notch risk management and fraud protection services, optimization assistance, 24/7 live customer support and detail analytics and reporting tools.</description>
-    <notes>Stable and well tested version of Paymentwall payment extension</notes>
+    <summary>Paymentwall payment extension for Magento. 120+ payment methods in more than 200 countries.</summary>
+    <description>Paymentwall payment extension for Magento. 120+ payment methods in more than 200 countries.&#xD;
+Paymentwall&#x2019;s Magneto plug-in is easy to install and fully customizable. With a single integration you&#x2019;ll have access to our 120+ payment options localized in 75+ currencies and more than 200 countries. You&#x2019;ll also have access to our top-notch risk management and fraud protection services, optimization assistance, 24/7 live customer support and detail analytics and reporting tools.</description>
+    <notes>Updated version with the relevant contents</notes>
     <authors><author><name>Ivan</name><user>Paymentwall</user><email>ivan.shvets@paymentwall.com</email></author></authors>
     <date>2014-09-03</date>
-    <time>09:54:13</time>
-    <contents></contents>
+    <time>16:15:32</time>
+    <contents><target name="magelocal"><dir name="Paymentwall"><dir name="Paymentwall"><dir name="controllers"><file name="IndexController.php" hash="8332d94b58318f02f8b34560d68a11fc"/><dir name="lib"><file name="README.md" hash=""/><file name="LICENSE" hash=""/><file name="composer.json" hash=""/><file name=".git" hash=""/><dir name="lib"><file name="paymentwall.php" hash=""/><dir name="Paymentwall"><file name="Base.php" hash=""/><file name="Pingback.php" hash=""/><file name="Product.php" hash=""/><file name="Widget.php" hash=""/><dir name="Pro"><file name="Charge.php" hash=""/><file name="Error.php" hash=""/><file name="HttpWrapper.php" hash=""/></dir></dir></dir></dir></dir><dir name="etc"><file name="config.xml" hash="c204683c06f58a3f218120225b02e5b8"/><file name="system.xml" hash="ce93cbd207e6065e299939a09b18c696"/></dir><dir name="Helper"><file name="Data.php" hash="85a20e437bbbf0ca1fd72314eb6a9633"/></dir><dir name="Model"><file name="Payment.php" hash="3aaa8cc29139e89a13aa0ee307ed355e"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Paymentwall_Paymentwall.xml" hash="fb1fcfe999b25202a0364158ae9eba92"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.3.0</min><max>5.6.0</max></php><package><name>paymentwall_magento_module</name><channel>community</channel><min>1.7</min><max>1.9</max></package></required></dependencies>
+    <dependencies><required><php><min>5.3.0</min><max>5.6.0</max></php></required></dependencies>
 </package>
