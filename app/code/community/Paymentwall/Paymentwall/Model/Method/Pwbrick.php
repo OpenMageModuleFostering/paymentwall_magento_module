@@ -106,17 +106,9 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
 
         if ($charge->isSuccessful() && empty($rawResponse['secure'])) {
             if ($charge->isCaptured()) {
-
-                $payment->setTransactionId($charge->getId());
-                $payment->setIsTransactionClosed(0);
-
-                // store token data
                 $payment->setTransactionAdditionalInfo('saved_token', Mage::helper('core')->encrypt($charge->getCard()->getToken()));
-            } elseif ($charge->isUnderReview()) {
-                $payment->setIsTransactionPending(true);
             }
         } elseif (!empty($rawResponse['secure'])) {
-            $payment->setIsTransactionPending(true);
             $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 'pending_payment', '3D Secure Auth Now Taking Place')->save();
             Mage::getModel('core/session')
@@ -127,8 +119,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
                 ->setChargeOrderId($order->getIncrementId())
                 ->setChargeData(json_encode($chargeData));
         } else {
-            $payment->setIsTransactionPending(true)
-                ->setIsFraudDetected(true);
+            $payment->setIsFraudDetected(true);
             $errors = json_decode($response, true);
             $this->log($errors, 'Charge error response');
             $strErrors = Mage::helper('paymentwall')->__("Brick error(s):");
@@ -136,6 +127,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
             Mage::throwException($strErrors);
         }
 
+        $payment->setIsTransactionPending(true);
         return $this;
     }
 
@@ -349,13 +341,15 @@ class Paymentwall_Paymentwall_Model_Method_Pwbrick extends Paymentwall_Paymentwa
                 ->setSecureFormHtml(null)
                 ->setChargeOrderId(null)
                 ->setChargeData(null);
-            // Debug
-            $this->log($response, 'Charge success');
+
             return true;
         } else {
             $order->getPayment()
                 ->setIsTransactionPending(true)
                 ->setIsFraudDetected(true);
+                
+            $order->setState(Mage_Sales_Model_Order::STATE_CANCELED, true)->save();
+
             $errors = json_decode($response, true);
             $this->log($errors, 'Charge error response');
             $strErrors = Mage::helper('paymentwall')->__("Brick error(s):");
