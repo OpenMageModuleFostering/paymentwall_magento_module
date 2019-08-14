@@ -4,8 +4,7 @@
  * @author  Paymentwall Inc <devsupport@paymentwall.com>
  * @package Paymentwall\ThirdpartyIntegration\Magento\Model\Method
  */
-class Paymentwall_Paymentwall_Model_Method_Pwlocal extends Paymentwall_Paymentwall_Model_Method_Abstract
-{
+class Paymentwall_Paymentwall_Model_Method_Pwlocal extends Paymentwall_Paymentwall_Model_Method_Abstract {
     protected $_isGateway = true;
     protected $_canUseInternal = false;
     protected $_canUseForMultishipping = false;
@@ -14,13 +13,11 @@ class Paymentwall_Paymentwall_Model_Method_Pwlocal extends Paymentwall_Paymentwa
      * Constructor method.
      * Set some internal properties
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct('pwlocal');
     }
 
-    public function getOrderPlaceRedirectUrl()
-    {
+    public function getOrderPlaceRedirectUrl() {
         return Mage::getUrl('paymentwall/payment/pwlocal', array('_secure' => true));
     }
 
@@ -29,8 +26,7 @@ class Paymentwall_Paymentwall_Model_Method_Pwlocal extends Paymentwall_Paymentwa
      * @param $order
      * @return Paymentwall_Widget
      */
-    public function getPaymentWidget(Mage_Sales_Model_Order $order)
-    {
+    public function getPaymentWidget(Mage_Sales_Model_Order $order) {
         $this->initPaymentwallConfig();
 
         $widget = new Paymentwall_Widget(
