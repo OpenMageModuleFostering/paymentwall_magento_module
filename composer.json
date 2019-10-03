@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/paymentwall_magento_module",
+    "name": "OpenMageModuleFostering\/paymentwall_magento_module",
     "type": "magento-module",
     "license": "MITL",
     "homepage": "",
     "description": "Paymentwall payment extension for Magento. 120+ payment methods in more than 200 countries.",
     "authors": [
-    {
-        "name": "Paymentwall",
-        "email": "platforms@paymentwall.com"
-    }
-],
+        {
+            "name": "Paymentwall",
+            "email": "platforms@paymentwall.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
