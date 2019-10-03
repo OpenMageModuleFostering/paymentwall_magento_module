@@ -1,5 +1,5 @@
 {
-    "name": "OpenMageModuleFostering\/paymentwall_magento_module",
+    "name": "openmage-module-fostering\/paymentwall_magento_module",
     "type": "magento-module",
     "license": "MITL",
     "homepage": "",
